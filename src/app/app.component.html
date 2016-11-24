@@ -1,0 +1,148 @@
+<div class="container">
+  <section style="margin-top: 8%">
+    <form>
+      <div class="row">
+        <div class="six columns"
+             style="text-align: center;
+                    color: #3d3df3;">
+          <h4 style="font-weight: bold;">Simple Stock Exchange</h4>
+        </div>
+        <div style="text-align: center;" class="six columns">
+          <input id="lookup" #symbol style="width: 115px;
+                        text-align: center;
+                        background-color: whitesmoke;
+                        font-size: 14px; color:blue;"
+                 type="text"
+                 value=""
+                 placeholder="Enter Symbol">
+          <button style="width: 115px;" class="button-primary" (click)="onSymbolLookup(symbol.value)">Lookup</button>
+            <p style="color: crimson; font-weight: bold;" id="error-message"></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="six columns"
+             style="margin-top: 10%;
+             text-align: center;
+             background-color: #3d3df3;
+             color: white;
+             border-radius: 10px;">
+          <input #stockName value="{{stock.name}}"
+               style="padding-top: 18px;
+                      white-space: normal;
+                      width:80%;
+                      word-wrap: break-word;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                      text-align: center;
+                      background-color: #3d3df3;
+                      border: 0;"
+                      readonly/>
+            <table class="u-full-width">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">Bid</th>
+                    <th style="text-align: center;">Ask</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <input #BID
+                               value="{{stock.bidPrice}}"
+                               style="background-color: #3d3df3;
+                                      color: white;
+                                      text-align: center;
+                                      border: 0;
+                                      width: 100px;
+                                      margin-bottom: 0;
+                                      padding-left: 25px;"
+                               type="number"
+                               readonly/>
+                    </td>
+                    <td style="text-align: center;">
+                        <input #ASK
+                               value="{{stock.askPrice}}"
+                               style="background-color: #3d3df3;
+                                      color: white;
+                                      text-align: center;
+                                      border: 0;
+                                      width: 100px;
+                                      margin-bottom: 0;
+                                      padding-left: 25px;"
+                               type="number"
+                               readonly/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+          <button style="width: 100px;" class="button-primary"
+                  (click)="onSell(stockName.value, stockQuantity.value, BID.value)">Sell</button>
+          <button style="width: 100px;" class="button-primary"
+                  (click)="onBuy(stockName.value, stockQuantity.value, ASK.value)">Buy</button>
+          <input id="quantityStock" #stockQuantity style="width: 100px;
+                        text-align: center;
+                        color: #000000;
+                        background-color: whitesmoke;
+                        color: blue;"
+                 type="number"
+                 min="0"
+                 value=""
+                 placeholder="Quantity">
+          <p style="padding-left: 15px; padding-right: 15px; color: greenyellow; font-weight: bold;" id="message"></p>
+        </div>
+        <div class="six columns"
+             style="margin-top: 8%;
+                    text-align: center;
+                    color: #3d3df3;">
+          <h4 style="margin-bottom:0;">Current Portfolio</h4>
+          <h5>Cash: {{cash | currency: 'USD':true}}</h5>
+            <table>
+                <thead>
+                <tr>
+                    <th>Company</th>
+                    <th style="text-align: right;">Qty</th>
+                    <th colspan="2" style="word-wrap: break-word;">Price Paid</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let holding of Portfolio;">
+                    <td>
+                        {{holding.stock.name}}
+                        <input type="hidden" value="{{holding.stock.name}}" />
+                        <input #stockSymbol type="hidden" value="{{holding.stock.symbol}}" />
+                    </td>
+                    <td>
+                        <input style="border: 0;
+                                      background-color:#87CEEB;
+                                      width: 41px;
+                                      text-align: right;"
+                               value="{{holding.quantity}}"
+                               readonly/>
+                    </td>
+                    <td>
+                        <input style="border: 0;
+                                      background-color:#87CEEB;
+                                      width: 50px;
+                                      text-align: right;"
+                               value="{{holding.value}}"
+                               readonly/>
+                    </td>
+                    <td style="padding-left: 0px;">
+                        <button style="width: 50px;
+                                       padding: 0;"
+                                class="button-primary"
+                                (click)="onViewLookup(stockSymbol.value)">
+                                View
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+

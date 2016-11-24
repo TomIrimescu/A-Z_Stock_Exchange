@@ -1,0 +1,14 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Tom Irimescu -- Web Developer -- https://irimescu.com
+
+# THANKS
+
+  Dave Gamache, Benzinga
+
+# TECHNOLOGY COLOPHON
+
+  HTML5, CSS3, Javascript
