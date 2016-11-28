@@ -4,11 +4,13 @@ import 'rxjs/Rx';
 import { Stock } from "./stock";
 import {Observable} from 'rxjs/Rx';
 /*import { Holding } from "./holding";*/
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class StockService {
 
-  stockChanged = new EventEmitter<any>();
+  stockChanged = new EventEmitter<Stock>();
 
 /*  holding: Holding;*/
 
@@ -20,70 +22,38 @@ export class StockService {
 
   constructor(private http: Http) { }
 
-  symbolLookup(symbol){
+  symbolLookup(symbol: string){
     console.log(symbol);
     console.log('I did a symbol lookup');
 
       return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)
-      .map((response: Response) => response.json())
+      .map((response: Response) => response.json()[symbol])
       .subscribe(
           (data: any) => {
             this.stock = data;
             console.log(this.stock);
-            if(this.stock.null){
-              document.getElementById("error-message").innerHTML = this.stock.null.error.message;
+            if(this.stock === undefined || (this.stock.error.code = 1)){
+              document.getElementById("error-message").innerHTML = 'Unknown symbol';
             }else{
-              this.stockChanged.emit(this.stock.F);
+              this.stockChanged.emit(this.stock);
             }
           }
       );
 
-/*    return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + this.symbol)
-      .map((response: Response) => response.json())
-      .subscribe(
-          (data: any) => {
-            let jsonObject = data;
-
-/!*            this.keys = Object.keys(jsonObject);
-            this.stockSymbol = <string>this.keys[0];
-            console.log(this.stockSymbol);*!/
-
-
-            this.stock = new Stock(jsonObject.JNJ.symbol,
-              jsonObject.JNJ.name,
-              jsonObject.JNJ.bidPrice,
-              jsonObject.JNJ.askPrice,
-            );
-            console.log(this.stock);
-
-            this.stockChanged.emit(this.stock);
-          }
-      );*/
-
-/*    return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + this.symbol)
-    .map((response: Response) => response.json())
-    .subscribe(
-        (data: any) => {
-          this.stock = data;
-          console.log(this.stock);
-/!*          this.stockChanged.emit(this.stock.F);*!/
-        }
-    );*/
-
   }
 
-  viewLookup(symbol){
+  viewLookup(symbol: string){
     console.log(symbol);
     console.log('I did a view lookup');
 
     return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)
-    .map((response: Response) => response.json())
+    .map((response: Response) => response.json()[symbol])
     .subscribe(
         (data: any) => {
           this.stock = data;
           console.log(this.stock);
 
-          this.stockChanged.emit(this.stock.MSFT);
+          this.stockChanged.emit(this.stock);
         }
     );
 
