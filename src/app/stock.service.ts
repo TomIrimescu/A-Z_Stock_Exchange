@@ -27,14 +27,14 @@ export class StockService {
     console.log('I did a symbol lookup');
 
       return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)
-      .map((response: Response) => response.json()[symbol])
+      .map((response: Response) => response.json()[ symbol ])
       .subscribe(
           (data: any) => {
             this.stock = data;
             console.log(this.stock);
-            if(this.stock === undefined || (this.stock.error.code = 1)){
+            if (this.stock === undefined || symbol === 'null') {
               document.getElementById("error-message").innerHTML = 'Unknown symbol';
-            }else{
+            } else {
               this.stockChanged.emit(this.stock);
             }
           }

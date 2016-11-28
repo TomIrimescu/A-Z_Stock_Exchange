@@ -27,7 +27,7 @@
              background-color: #3d3df3;
              color: white;
              border-radius: 10px;">
-          <input #stockName value="{{stock.name}}"
+            <input #stockName value="{{stock.name}}"
                style="padding-top: 18px;
                       white-space: normal;
                       width:80%;
@@ -36,8 +36,21 @@
                       padding-right: 8px;
                       text-align: center;
                       background-color: #3d3df3;
+                      margin-bottom: 0px;
                       border: 0;"
                       readonly/>
+            <input #stockSym value="( {{stock.symbol}} )"
+                   style="padding-top: 0px;
+                      white-space: normal;
+                      width:80%;
+                      word-wrap: break-word;
+                      padding-left: 8px;
+                      padding-right: 8px;
+                      text-align: center;
+                      background-color: #3d3df3;
+                      margin-bottom: 0px;
+                      border: 0;"
+                   readonly/>
             <table class="u-full-width">
                 <thead>
                 <tr>
