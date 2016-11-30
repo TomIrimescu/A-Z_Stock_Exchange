@@ -13,10 +13,10 @@ export class AppComponent implements OnInit, OnDestroy {
   public Portfolio: Array<Holding>;
   public cash: number;
   public stock: Stock = {
-      symbol: 'TC',
-      name: 'Tomcat',
-      bidPrice: 13,
-      askPrice: 13.13
+      symbol: 'Stock Symbol',
+      name: 'Stock Name',
+      bidPrice: 0.00,
+      askPrice: 0.00
   };
 
   private subscription: Subscription;
@@ -72,7 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
         (stock: Stock) => this.stock = stock
     );
 
-    console.log(this.stock);
+    console.log(this.stock); /*testing*/
 
   }
 
@@ -90,31 +90,60 @@ export class AppComponent implements OnInit, OnDestroy {
     this.stockService.viewLookup(symbol);
   }
 
-  onBuy(stockName, stockQuantity: number, ASK: number){
-
-    document.getElementById("error-message").innerHTML = '';
-    if(this.cash >= stockQuantity * ASK){
-      this.stockService.buyStock(stockName, stockQuantity, ASK);
-      this.cash = (this.cash) - (stockQuantity * ASK);
-      console.log(typeof (this.cash)); /*testing*/
-      document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
-      document.getElementById("quantityStock").value = '';
-    }else{
-      document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You will exceed <br>your' +
-      ' available cash!</span>';
-      document.getElementById("quantityStock").value = '';
-      return;
+  getSymbols(item,index) {
+    var stockSymbol = [item.stock.symbol];
+    var arrayLength = stockSymbol.length;
+    for (var i = 0; i < arrayLength; i++) {
+      var symbols = stockSymbol[i];
     }
-
+    return symbols;
   }
 
-  onSell(stockName, stockQuantity: number, BID: number){
-    document.getElementById("error-message").innerHTML = '';
-    this.stockService.sellStock(stockName, stockQuantity, BID);
-    this.cash = (this.cash) + (stockQuantity * BID);
-    console.log(typeof (this.cash)); /*testing*/
-    document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * BID);
-    document.getElementById("quantityStock").value = '';
+  onBuy(stockSym, stockName, BID, ASK, stockQuantity) {
+    if (stockSym === 'Stock Symbol') {
+      document.getElementById("quantityStock").value = '';
+      return;
+    } else {
+      document.getElementById("error-message").innerHTML = '';
+      if (this.cash >= stockQuantity * ASK) {
+        console.log(this.Portfolio.map(this.getSymbols)); /*testing*/
+        var checkSymbols = this.Portfolio.map(this.getSymbols);
+        var arrayLength = checkSymbols.length;
+        for (var i = 0; i < arrayLength; i++) {
+          console.log(checkSymbols[ i ]); /*testing*/
+          if (checkSymbols[ i ] == stockSym) {
+            console.log('This is a stock update');
+            return;
+          }
+        }
+        console.log('This is a new stock purchase');
+        this.Portfolio.push(new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK)));
+        this.cash = (this.cash) - (stockQuantity * ASK);
+        console.log(typeof (this.cash)); /*testing*/
+        document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
+        document.getElementById("quantityStock").value = '';
+
+      } else {
+        document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You will exceed <br>your' +
+            ' available cash!</span>';
+        document.getElementById("quantityStock").value = '';
+        return;
+      }
+    }
+  }
+
+  onSell(stockSym, stockName, BID, ASK, stockQuantity) {
+    if (stockSym === 'Stock Symbol') {
+      document.getElementById("quantityStock").value = '';
+      return;
+    } else {
+      document.getElementById("error-message").innerHTML = '';
+      this.cash = (this.cash) + (stockQuantity * BID);
+      console.log(typeof (this.cash)); /*testing*/
+      document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * BID);
+      document.getElementById("quantityStock").value = '';
+    }
+
   }
 
   ngOnDestroy(){

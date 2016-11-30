@@ -1,6 +1,5 @@
 <div class="container">
   <section style="margin-top: 8%">
-    <form>
       <div class="row">
         <div class="six columns"
              style="text-align: center;
@@ -16,7 +15,7 @@
                  value=""
                  placeholder="Enter Symbol">
           <button style="width: 115px;" class="button-primary" (click)="onSymbolLookup(symbol.value)">Lookup</button>
-            <p style="color: crimson; font-weight: bold;" id="error-message"></p>
+          <p style="color: crimson; font-weight: bold;" id="error-message"></p>
         </div>
       </div>
 
@@ -39,7 +38,7 @@
                       margin-bottom: 0px;
                       border: 0;"
                       readonly/>
-            <input #stockSym value="( {{stock.symbol}} )"
+            <input #stockSym value="{{stock.symbol}}"
                    style="padding-top: 0px;
                       white-space: normal;
                       width:80%;
@@ -90,9 +89,10 @@
                 </tbody>
             </table>
           <button style="width: 100px;" class="button-primary"
-                  (click)="onSell(stockName.value, stockQuantity.value, BID.value)">Sell</button>
+                  (click)="onSell(stockSym.value, stockName.value, BID.value, ASK.value, stockQuantity.value)">Sell</button>
           <button style="width: 100px;" class="button-primary"
-                  (click)="onBuy(stockName.value, stockQuantity.value, ASK.value)">Buy</button>
+                  (click)="onBuy(stockSym.value, stockName.value, BID.value, ASK.value, stockQuantity.value)">Buy
+          </button>
           <input id="quantityStock" #stockQuantity style="width: 100px;
                         text-align: center;
                         color: #000000;
@@ -155,7 +155,6 @@
             </table>
         </div>
       </div>
-    </form>
   </section>
 </div>
 
