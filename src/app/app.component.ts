@@ -112,7 +112,20 @@ export class AppComponent implements OnInit, OnDestroy {
         for (var i = 0; i < arrayLength; i++) {
           console.log(checkSymbols[ i ]); /*testing*/
           if (checkSymbols[ i ] == stockSym) {
-            console.log('This is a stock update');
+            console.log(stockSym); /*testing*/
+            console.log('This is a stock update'); /*testing*/
+            console.log(this.Portfolio[i].stock.symbol); /*testing*/
+
+/*            item.stock.quantity
+            item.stock.value*/
+
+            this.Portfolio[i] = new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK));
+
+
+            this.cash = (this.cash) - (stockQuantity * ASK);
+            console.log(typeof (this.cash)); /*testing*/
+            document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
+            document.getElementById("quantityStock").value = '';
             return;
           }
         }
