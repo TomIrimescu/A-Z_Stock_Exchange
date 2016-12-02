@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(typeof (this.cash)); /*testing*/
     console.log(this.cash); /*testing*/
 
-    this.Portfolio.push(
+/*    this.Portfolio.push(
         {
           stock: {
             symbol: 'F',
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
           "quantity": 5,
           "value": 24.99
         }
-    );
+    );*/
 
     this.subscription = this.stockService.stockChanged.subscribe(
         (stock: Stock) => this.stock = stock
@@ -124,54 +124,58 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     } else {
       document.getElementById("error-message").innerHTML = '';
-      if (this.cash >= stockQuantity * ASK) {
-        console.log(this.Portfolio.map(this.getSymbols)); /*testing*/
-        console.log(this.Portfolio.map(this.getQuantities)); /*testing*/
-        console.log(this.Portfolio.map(this.getValues)); /*testing*/
-        var checkSymbols = this.Portfolio.map(this.getSymbols);
-        var checkQuantities = this.Portfolio.map(this.getQuantities);
-        var checkValues = this.Portfolio.map(this.getValues);
-        var arrayLength = checkSymbols.length;
+      if ((this.cash >= stockQuantity * ASK) && (stockQuantity > 0)) {
+        console.log(this.Portfolio.map(this.getSymbols));/*testing*/
+        console.log(this.Portfolio.map(this.getQuantities));/*testing*/
+        console.log(this.Portfolio.map(this.getValues));/*testing*/
+        var buySymbols = this.Portfolio.map(this.getSymbols);
+        var buyQuantities = this.Portfolio.map(this.getQuantities);
+        var buyValues = this.Portfolio.map(this.getValues);
+        var arrayLength = buySymbols.length;
         for (var i = 0; i < arrayLength; i++) {
-          console.log(checkSymbols[ i ]); /*testing*/
-          console.log(checkQuantities[ i ]); /*testing*/
-          console.log(checkValues[ i ]); /*testing*/
-          if (checkSymbols[ i ] == stockSym) {
-            console.log(stockSym); /*testing*/
-            console.log('This is a stock update'); /*testing*/
-            console.log(this.Portfolio[i].stock.symbol); /*testing*/
+          console.log(buySymbols[ i ]);/*testing*/
+          console.log(buyQuantities[ i ]);/*testing*/
+          console.log(buyValues[ i ]);/*testing*/
+          if (buySymbols[ i ] == stockSym) {
+            console.log(stockSym);/*testing*/
+            console.log('This is a stock update');/*testing*/
+            console.log(this.Portfolio[ i ].stock.symbol);/*testing*/
 
-            var totalQuantity: number = parseFloat(stockQuantity)+parseFloat(checkQuantities[ i ]);
-            console.log('Quantity total: ' + totalQuantity); /*testing*/
-            var totalValue: number = parseFloat((stockQuantity * ASK)+(checkValues[ i ]));
-            console.log('Value total: ' + totalValue); /*testing*/
-
-            this.Portfolio[i] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
+            var totalQuantity: number = parseFloat(stockQuantity) + parseFloat(buyQuantities[ i ]);
+            console.log('Quantity total: ' + totalQuantity);/*testing*/
+            var totalValue: number = parseFloat((stockQuantity * ASK) + (buyValues[ i ]));
+            console.log('Value total: ' + totalValue);/*testing*/
+            this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
 
             this.cash = (this.cash) - (stockQuantity * ASK);
-            console.log(typeof (this.cash)); /*testing*/
+            console.log(typeof (this.cash));/*testing*/
             document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
             var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
             quantityElement.value = '';
             return;
           }
         }
-        console.log('This is a new stock purchase');
+        console.log('This is a new stock purchase'); /*testing*/
         this.Portfolio.push(new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK)));
         this.cash = (this.cash) - (stockQuantity * ASK);
-        console.log(typeof (this.cash)); /*testing*/
+        console.log(typeof (this.cash));/*testing*/
         document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
         var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
         quantityElement.value = '';
 
-      } else {
+      } else if(stockQuantity == 0) {
+        document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">Select a quantity</span>';
+        var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+        quantityElement.value = '';
+        return;
+      } else{
         document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You will exceed <br>your' +
             ' available cash!</span>';
         var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
         quantityElement.value = '';
-        return;
       }
     }
+
   }
 
   onSell(stockSym, stockName, BID, ASK, stockQuantity) {
@@ -179,43 +183,54 @@ export class AppComponent implements OnInit, OnDestroy {
       var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
       quantityElement.value = '';
       return;
-    } else {
-      document.getElementById("error-message").innerHTML = '';
-      console.log(this.Portfolio.map(this.getSymbols)); /*testing*/
-      console.log(this.Portfolio.map(this.getQuantities)); /*testing*/
-      console.log(this.Portfolio.map(this.getValues)); /*testing*/
-      var checkSymbols = this.Portfolio.map(this.getSymbols);
-      var checkQuantities = this.Portfolio.map(this.getQuantities);
-      var checkValues = this.Portfolio.map(this.getValues);
-      var arrayLength = checkSymbols.length;
-      for (var i = 0; i < arrayLength; i++) {
-        console.log(checkSymbols[ i ]);/*testing*/
-        console.log(checkQuantities[ i ]);/*testing*/
-        console.log(checkValues[ i ]);/*testing*/
-        if (checkSymbols[ i ] == stockSym) {
-          console.log(stockSym); /*testing*/
-          console.log('This is current stock sale');
-          console.log(this.Portfolio[i].stock.symbol); /*testing*/
-
-
-        }else{
-          document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You do not<br>hold this stock!</span>';
-          var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
-          quantityElement.value = '';
-          return;
-        }
-
-      }
-
-
-
-      this.cash = (this.cash) + (stockQuantity * BID);
-      console.log(typeof (this.cash)); /*testing*/
-      document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * BID);
+    } else if(stockQuantity == 0){
+      document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">Select a quantity</span>';
       var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
       quantityElement.value = '';
-    }
+      return;
+    } else {
+      document.getElementById("message").innerHTML = '';
+      document.getElementById("error-message").innerHTML = '';
+/*    console.log(this.Portfolio.map(this.getSymbols)); /!*testing*!/
+      console.log(this.Portfolio.map(this.getQuantities)); /!*testing*!/
+      console.log(this.Portfolio.map(this.getValues)); /!*testing*!/*/
+      var sellSymbols = this.Portfolio.map(this.getSymbols);
+      var sellQuantities = this.Portfolio.map(this.getQuantities);
+      var sellValues = this.Portfolio.map(this.getValues);
+      var arrayLength = sellSymbols.length;
+      for (var i = 0; i < arrayLength; i++) {
+/*        console.log(sellSymbols[ i ]);/!*testing*!/
+        console.log(sellQuantities[ i ]);/!*testing*!/
+        console.log(sellValues[ i ]);/!*testing*!/*/
+        if (sellSymbols[ i ] == stockSym) {
+/*          console.log(stockName); /!*testing*!/
+          console.log(stockSym); /!*testing*!/
+          console.log(stockQuantity); /!*testing*!/
+          console.log('This is current stock sale'); /!*testing*!/
+          console.log(this.Portfolio[i].stock.symbol); /!*testing*!/*/
 
+          if((sellQuantities[ i ]) >= stockQuantity){
+              var totalQuantity: number = parseFloat(sellQuantities[ i ]) - parseFloat(stockQuantity);
+/*              console.log('Quantity total: ' + totalQuantity);/!*testing*!/*/
+              var totalValue: number = (sellValues[ i ]) - (stockQuantity * BID);
+/*              console.log('Value total: ' + totalValue);/!*testing*!/*/
+
+              this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
+
+              this.cash = (this.cash) + (stockQuantity * BID);
+/*              console.log(typeof (this.cash));/!*testing*!/*/
+              document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * BID);
+              var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+              quantityElement.value = '';
+              return;
+          }
+        }
+      }
+       document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You cannot make<br>' +
+       'this trade!</span>';
+       var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+       quantityElement.value = '';
+    }
   }
 
   ngOnDestroy(){

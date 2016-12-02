@@ -89,7 +89,8 @@
                 </tbody>
             </table>
           <button style="width: 100px;" class="button-primary"
-                  (click)="onSell(stockSym.value, stockName.value, BID.value, ASK.value, stockQuantity.value)">Sell</button>
+                  (click)="onSell(stockSym.value, stockName.value, BID.value, ASK.value, stockQuantity.value)">Sell
+          </button>
           <button style="width: 100px;" class="button-primary"
                   (click)="onBuy(stockSym.value, stockName.value, BID.value, ASK.value, stockQuantity.value)">Buy
           </button>
@@ -101,7 +102,7 @@
                  type="number"
                  min="0"
                  value=""
-                 placeholder="Quantity">
+                 placeholder="Quantity"/>
           <p style="padding-left: 15px; padding-right: 15px; color: greenyellow; font-weight: bold;" id="message"></p>
         </div>
         <div class="six columns"
