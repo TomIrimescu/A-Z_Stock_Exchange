@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public Portfolio: Array<Holding>;
   public cash: number;
   public stock: Stock = {
-      symbol: 'Stock Symbol',
+      symbol: 'Symbol',
       name: 'Stock Name',
       bidPrice: 0.00,
       askPrice: 0.00
@@ -76,11 +76,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
-
   onSymbolLookup(symbol){
     document.getElementById("message").innerHTML = '';
     document.getElementById("error-message").innerHTML = '';
-    document.getElementById("lookup").value = "";
+    var lookupElement = <HTMLInputElement>document.getElementById("lookup");
+    lookupElement.value = '';
     this.stockService.symbolLookup(symbol);
   }
 
@@ -99,33 +99,60 @@ export class AppComponent implements OnInit, OnDestroy {
     return symbols;
   }
 
+  getQuantities(item,index) {
+    var stockQuantity = [item.quantity];
+    var arrayLength = stockQuantity.length;
+    for (var i = 0; i < arrayLength; i++) {
+      var quantities = stockQuantity[i];
+    }
+    return quantities;
+  }
+
+  getValues(item,index) {
+    var stockValue = [item.value];
+    var arrayLength = stockValue.length;
+    for (var i = 0; i < arrayLength; i++) {
+      var values = stockValue[i];
+    }
+    return values;
+  }
+
   onBuy(stockSym, stockName, BID, ASK, stockQuantity) {
-    if (stockSym === 'Stock Symbol') {
-      document.getElementById("quantityStock").value = '';
+    if (stockSym === 'Symbol') {
+      var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+      quantityElement.value = '';
       return;
     } else {
       document.getElementById("error-message").innerHTML = '';
       if (this.cash >= stockQuantity * ASK) {
         console.log(this.Portfolio.map(this.getSymbols)); /*testing*/
+        console.log(this.Portfolio.map(this.getQuantities)); /*testing*/
+        console.log(this.Portfolio.map(this.getValues)); /*testing*/
         var checkSymbols = this.Portfolio.map(this.getSymbols);
+        var checkQuantities = this.Portfolio.map(this.getQuantities);
+        var checkValues = this.Portfolio.map(this.getValues);
         var arrayLength = checkSymbols.length;
         for (var i = 0; i < arrayLength; i++) {
           console.log(checkSymbols[ i ]); /*testing*/
+          console.log(checkQuantities[ i ]); /*testing*/
+          console.log(checkValues[ i ]); /*testing*/
           if (checkSymbols[ i ] == stockSym) {
             console.log(stockSym); /*testing*/
             console.log('This is a stock update'); /*testing*/
             console.log(this.Portfolio[i].stock.symbol); /*testing*/
 
-/*            item.stock.quantity
-            item.stock.value*/
+            var totalQuantity: number = parseFloat(stockQuantity)+parseFloat(checkQuantities[ i ]);
+            console.log('Quantity total: ' + totalQuantity); /*testing*/
+            var totalValue: number = parseFloat((stockQuantity * ASK)+(checkValues[ i ]));
+            console.log('Value total: ' + totalValue); /*testing*/
 
-            this.Portfolio[i] = new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK));
-
+            this.Portfolio[i] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
 
             this.cash = (this.cash) - (stockQuantity * ASK);
             console.log(typeof (this.cash)); /*testing*/
             document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
-            document.getElementById("quantityStock").value = '';
+            var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+            quantityElement.value = '';
             return;
           }
         }
@@ -134,27 +161,59 @@ export class AppComponent implements OnInit, OnDestroy {
         this.cash = (this.cash) - (stockQuantity * ASK);
         console.log(typeof (this.cash)); /*testing*/
         document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
-        document.getElementById("quantityStock").value = '';
+        var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+        quantityElement.value = '';
 
       } else {
         document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You will exceed <br>your' +
             ' available cash!</span>';
-        document.getElementById("quantityStock").value = '';
+        var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+        quantityElement.value = '';
         return;
       }
     }
   }
 
   onSell(stockSym, stockName, BID, ASK, stockQuantity) {
-    if (stockSym === 'Stock Symbol') {
-      document.getElementById("quantityStock").value = '';
+    if (stockSym === 'Symbol') {
+      var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+      quantityElement.value = '';
       return;
     } else {
       document.getElementById("error-message").innerHTML = '';
+      console.log(this.Portfolio.map(this.getSymbols)); /*testing*/
+      console.log(this.Portfolio.map(this.getQuantities)); /*testing*/
+      console.log(this.Portfolio.map(this.getValues)); /*testing*/
+      var checkSymbols = this.Portfolio.map(this.getSymbols);
+      var checkQuantities = this.Portfolio.map(this.getQuantities);
+      var checkValues = this.Portfolio.map(this.getValues);
+      var arrayLength = checkSymbols.length;
+      for (var i = 0; i < arrayLength; i++) {
+        console.log(checkSymbols[ i ]);/*testing*/
+        console.log(checkQuantities[ i ]);/*testing*/
+        console.log(checkValues[ i ]);/*testing*/
+        if (checkSymbols[ i ] == stockSym) {
+          console.log(stockSym); /*testing*/
+          console.log('This is current stock sale');
+          console.log(this.Portfolio[i].stock.symbol); /*testing*/
+
+
+        }else{
+          document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You do not<br>hold this stock!</span>';
+          var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+          quantityElement.value = '';
+          return;
+        }
+
+      }
+
+
+
       this.cash = (this.cash) + (stockQuantity * BID);
       console.log(typeof (this.cash)); /*testing*/
       document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * BID);
-      document.getElementById("quantityStock").value = '';
+      var quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+      quantityElement.value = '';
     }
 
   }
