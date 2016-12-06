@@ -1,0 +1,184 @@
+{ 
+  "A": {
+    "symbol": "A",
+    "name": "Asperzing",
+    "bidPrice": 51.97,
+    "askPrice": 51.98
+  },
+
+  "B": {
+    "symbol": "B",
+    "name": "Buyuont",
+    "bidPrice": 92.57,
+    "askPrice": 92.58
+  },
+  
+  "C": {
+    "symbol": "C",
+    "name": "Clarecall",
+    "bidPrice": 45.97,
+    "askPrice": 45.98
+  },
+
+  "D": {
+    "symbol": "D",
+    "name": "Dalton",
+    "bidPrice": 6.57,
+    "askPrice": 6.58
+  },
+  
+   "E": {
+    "symbol": "E",
+    "name": "Eway",
+    "bidPrice": 33.97,
+    "askPrice": 33.98
+  },
+
+  "F": {
+    "symbol": "F",
+    "name": "Farnum",
+    "bidPrice": 68.57,
+    "askPrice": 68.58
+  },
+  
+  "G": {
+    "symbol": "G",
+    "name": "Gunster",
+    "bidPrice": 16.97,
+    "askPrice": 16.98
+  },
+
+  "H": {
+    "symbol": "H",
+    "name": "Helpin",
+    "bidPrice": 88.57,
+    "askPrice": 88.58
+  },
+  
+  "I": {
+    "symbol": "I",
+    "name": "Iri",
+    "bidPrice": 13.97,
+    "askPrice": 13.98
+  },
+
+  "J": {
+    "symbol": "J",
+    "name": "Jokesy",
+    "bidPrice": 40.57,
+    "askPrice": 40.58
+  },
+  
+  "K": {
+    "symbol": "K",
+    "name": "Klark",
+    "bidPrice": 9.97,
+    "askPrice": 9.98
+  },
+
+  "L": {
+    "symbol": "L",
+    "name": "Lucidy",
+    "bidPrice": 66.57,
+    "askPrice": 66.58
+  },
+  
+   "M": {
+    "symbol": "M",
+    "name": "Mercurize",
+    "bidPrice": 81.97,
+    "askPrice": 81.98
+  },
+
+  "N": {
+    "symbol": "N",
+    "name": "Nanno",
+    "bidPrice": 0.57,
+    "askPrice": 0.58
+  },
+  
+  "O": {
+    "symbol": "O",
+    "name": "Octo",
+    "bidPrice": 71.97,
+    "askPrice": 71.98
+  },
+
+  "P": {
+    "symbol": "P",
+    "name": "Pinnacle",
+    "bidPrice": 260.57,
+    "askPrice": 260.58
+  },
+  
+  "Q": {
+    "symbol": "Q",
+    "name": "Quirks",
+    "bidPrice": 31.97,
+    "askPrice": 31.98
+  },
+
+  "R": {
+    "symbol": "R",
+    "name": "Rotarizer",
+    "bidPrice": 20.57,
+    "askPrice": 20.58
+  },
+  
+  "S": {
+    "symbol": "S",
+    "name": "Surestep",
+    "bidPrice": 111.97,
+    "askPrice": 111.98
+  },
+
+  "T": {
+    "symbol": "T",
+    "name": "Tomcat Tech",
+    "bidPrice": 160.57,
+    "askPrice": 160.58
+  },
+  
+  "U": {
+    "symbol": "U",
+    "name": "Uster",
+    "bidPrice": 12.97,
+    "askPrice": 12.98
+  },
+
+  "V": {
+    "symbol": "V",
+    "name": "Vanquish",
+    "bidPrice": 50.57,
+    "askPrice": 50.58
+  },
+  
+   "W": {
+    "symbol": "W",
+    "name": "Wombat",
+    "bidPrice": 1.97,
+    "askPrice": 1.98
+  },
+
+  "X": {
+    "symbol": "X",
+    "name": "Xcello",
+    "bidPrice": 90.57,
+    "askPrice": 90.58
+  },
+  
+  "Y": {
+    "symbol": "Y",
+    "name": "Yaltata",
+    "bidPrice": 19.97,
+    "askPrice": 19.98
+  },
+
+  "Z": {
+    "symbol": "Z",
+    "name": "Zoro",
+    "bidPrice": 14.57,
+    "askPrice": 14.58
+  }
+
+}
