@@ -13,8 +13,11 @@ export class StockService {
   constructor(private http: Http) { }
 
   symbolLookup(symbol: string){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 /*  return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)*/
-      return this.http.get('stocks.json')
+      return this.http.get('stocks.json', {headers: headers})
       .map((response: Response) => response.json()[symbol])
       .subscribe(
           (data: any) => {
@@ -30,8 +33,11 @@ export class StockService {
   }
 
   viewLookup(symbol: string){
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 /*  return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)*/
-    return this.http.get('stocks.json')
+    return this.http.get('stocks.json', {headers: headers})
     .map((response: Response) => response.json()[symbol])
     .subscribe(
         (data: any) => {
