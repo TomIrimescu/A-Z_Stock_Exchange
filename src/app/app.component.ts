@@ -94,7 +94,12 @@ export class AppComponent implements OnInit, OnDestroy {
             let totalValue: number = parseFloat((stockQuantity * ASK) + (buyValues[ i ]));
             this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
             this.cash = (this.cash) - (stockQuantity * ASK);
-            document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
+
+            let purchasePrice: any = (stockQuantity * ASK);
+            purchasePrice = parseFloat(purchasePrice);
+            purchasePrice = purchasePrice.toFixed(2);
+
+            document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + purchasePrice;
             let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
             quantityElement.value = '';
             return;
@@ -102,7 +107,12 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.Portfolio.push(new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK)));
         this.cash = (this.cash) - (stockQuantity * ASK);
-        document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + (stockQuantity * ASK);
+
+        let purchasePrice: any = (stockQuantity * ASK);
+        purchasePrice = parseFloat(purchasePrice);
+        purchasePrice = purchasePrice.toFixed(2);
+
+        document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + purchasePrice;
         let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
         quantityElement.value = '';
 
@@ -139,28 +149,35 @@ export class AppComponent implements OnInit, OnDestroy {
       let sellValues = this.Portfolio.map(this.getValues);
       let arrayLength = sellSymbols.length;
       for (let i = 0; i < arrayLength; i++) {
-        if (sellSymbols[ i ] == stockSym) {
-          if((sellQuantities[ i ]) >= stockQuantity){
-              let totalQuantity: number = parseFloat(sellQuantities[ i ]) - parseFloat(stockQuantity);
-              let totalValue: number = (sellValues[ i ]) - (stockQuantity * BID);
-              this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
-              this.cash = (this.cash) + (stockQuantity * BID);
-              let purchasePrice: any = (stockQuantity * BID);
-              purchasePrice = parseFloat(purchasePrice);
-              purchasePrice = purchasePrice.toFixed(2);
-              document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock' +
-                  ' for ' + purchasePrice;
-              let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
-              quantityElement.value = '';
-              return;
-          }
+        let sSymbol = sellSymbols[ i ];
+        let sQuantity = sellQuantities[ i ];
+        let sValue = sellValues[ i ];
+        console.log(sSymbol);
+        console.log(sQuantity);
+        console.log(sValue);
+
+        if (sSymbol == stockSym && sQuantity >= stockQuantity) {
+          let totalQuantity: number = parseFloat(sQuantity) - parseFloat(stockQuantity);
+          let totalValue: number = (sValue) - (stockQuantity * BID);
+          this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
+
+          this.cash = (this.cash) + (stockQuantity * BID);
+
+          let salesPrice: any = (stockQuantity * BID);
+          salesPrice = parseFloat(salesPrice);
+          salesPrice = salesPrice.toFixed(2);
+          document.getElementById("message").innerHTML = 'Sold: ' + stockQuantity + ' ' + stockName + ' stock' +
+              ' for ' + salesPrice;
+          let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+          quantityElement.value = '';
+          return;
         }
       }
-       document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You cannot make<br>' +
-       'this trade!</span>';
-       let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
-       quantityElement.value = '';
     }
+    document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You cannot make<br>' +
+        'this trade!</span>';
+    let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
+    quantityElement.value = '';
   }
 
   ngOnDestroy(){
