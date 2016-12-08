@@ -1,5 +1,180 @@
-/* You can add global styles to this file, and also import other style files */
 @import url("normalize.css");
 @import url("skeleton.css");
-@import url("custom.css");
+
+body{
+	background-color: skyblue;
+}
+
+section{
+	margin-top: 8%
+}
+
+.six.columns{
+	text-align: center;
+}
+
+.six.columns.title{
+	color: #3d3df3;
+}
+
+.six.columns.title h4{
+	font-weight: bold;
+}
+.six.columns.symbol #lookup{
+	width: 115px;
+	text-align: center;
+	background-color: whitesmoke;
+	font-size: 14px; color:blue;
+}
+
+.six.columns.symbol button{
+	width: 115px;
+}
+
+.six.columns.symbol #error-message{
+	color: crimson;
+	font-weight: bold;
+}
+
+.six.columns.card{
+	margin-top: 10%;
+	background-color: #3d3df3;
+	color: white;
+	border-radius: 10px;
+}
+
+.six.columns.card .card-header.name{
+	padding-top: 18px;
+}
+
+.six.columns.card .card-header{
+	white-space: normal;
+	width:80%;
+	word-wrap: break-word;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: center;
+	background-color: #3d3df3;
+	margin-bottom: 0px;
+	border: 0;
+}
+
+.six.columns.card table.u-full-width th:first-child,
+.six.columns.card table.u-full-width td:first-child{
+	padding-right: 0;
+}
+
+.six.columns.card table.u-full-width th,
+.six.columns.card table.u-full-width td{
+	text-align: center;
+}
+
+.six.columns.card table.u-full-width input{
+	background-color: #3d3df3;
+	color: white;
+	text-align: center;
+	border: 0;
+	width: 100px;
+	margin-bottom: 0;
+	padding-left: 25px;
+}
+
+.six.columns.card button{
+	width: 100px;
+}
+
+.six.columns.card #quantityStock{
+	width: 100px;
+	text-align: center;
+	background-color: whitesmoke;
+	color: blue;
+}
+
+.six.columns.card #message{
+	padding-left: 15px;
+	padding-right: 15px;
+	color: greenyellow;
+	font-weight: bold;
+}
+
+.six.columns.portfolio{
+	margin-top: 8%;
+	color: #3d3df3;
+}
+
+.six.columns.portfolio h4{
+	margin-bottom:0;
+}
+
+.six.columns.portfolio th:first-child,
+.six.columns.portfolio td:first-child{
+	padding-right: 0;
+}
+
+.six.columns.portfolio th:nth-of-type(2){
+	text-align: right;
+}
+
+.six.columns.portfolio th:nth-of-type(3){
+	word-wrap: break-word;
+}
+
+.six.columns.portfolio td:nth-of-type(2) input{
+	border: 0;
+	background-color:#87CEEB;
+	width: 42px;
+	text-align: right;
+}
+
+.six.columns.portfolio td:nth-of-type(3) input{
+	border: 0;
+	background-color:#87CEEB;
+	width: 70px;
+	text-align: right;
+}
+
+.six.columns.portfolio td:nth-of-type(4){
+	padding-left: 0;
+}
+
+.six.columns.portfolio .button-primary{
+	width: 50px;
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

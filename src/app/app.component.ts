@@ -94,11 +94,9 @@ export class AppComponent implements OnInit, OnDestroy {
             let totalValue: number = parseFloat((stockQuantity * ASK) + (buyValues[ i ]));
             this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
             this.cash = (this.cash) - (stockQuantity * ASK);
-
             let purchasePrice: any = (stockQuantity * ASK);
             purchasePrice = parseFloat(purchasePrice);
             purchasePrice = purchasePrice.toFixed(2);
-
             document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + purchasePrice;
             let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
             quantityElement.value = '';
@@ -107,15 +105,12 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.Portfolio.push(new Holding(new Stock(stockSym, stockName, BID, ASK), stockQuantity, (stockQuantity * ASK)));
         this.cash = (this.cash) - (stockQuantity * ASK);
-
         let purchasePrice: any = (stockQuantity * ASK);
         purchasePrice = parseFloat(purchasePrice);
         purchasePrice = purchasePrice.toFixed(2);
-
         document.getElementById("message").innerHTML = 'Purchased: ' + stockQuantity + ' ' + stockName + ' stock for ' + purchasePrice;
         let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
         quantityElement.value = '';
-
       } else if (stockQuantity == 0) {
         document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">Select a quantity</span>';
         let quantityElement = <HTMLInputElement>document.getElementById("quantityStock");
@@ -168,8 +163,8 @@ export class AppComponent implements OnInit, OnDestroy {
           quantityElement.value = '';
           return;
         }
-
       }
+
     }
     document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You cannot make<br>' +
         'this trade!</span>';

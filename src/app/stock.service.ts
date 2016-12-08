@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter,  Input, Output, } from '@angular/core';
+import { Injectable, EventEmitter} from '@angular/core';
 import { Headers, Http, Response } from "@angular/http";
 import 'rxjs/Rx';
 import { Stock } from "./stock";
@@ -16,7 +16,6 @@ export class StockService {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-/*  return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)*/
       return this.http.get('stocks.json', {headers: headers})
       .map((response: Response) => response.json()[symbol])
       .subscribe(
@@ -36,7 +35,6 @@ export class StockService {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-/*  return this.http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + symbol)*/
     return this.http.get('stocks.json', {headers: headers})
     .map((response: Response) => response.json()[symbol])
     .subscribe(
