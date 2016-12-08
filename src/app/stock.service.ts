@@ -23,7 +23,7 @@ export class StockService {
           (data: any) => {
             this.stock = data;
             if (this.stock === undefined || symbol === 'null') {
-              document.getElementById("error-message").innerHTML = 'Unknown symbol';
+              document.getElementById("error-message").innerHTML = 'Unknown Symbol';
             } else {
               this.stockChanged.emit(this.stock);
             }

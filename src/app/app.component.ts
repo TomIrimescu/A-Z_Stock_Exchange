@@ -152,17 +152,13 @@ export class AppComponent implements OnInit, OnDestroy {
         let sSymbol = sellSymbols[ i ];
         let sQuantity = sellQuantities[ i ];
         let sValue = sellValues[ i ];
-        console.log(sSymbol);
-        console.log(sQuantity);
-        console.log(sValue);
-
-        if (sSymbol == stockSym && sQuantity >= stockQuantity) {
+        let sQ: number = parseInt(sQuantity);
+        let stQ: number = parseInt(stockQuantity);
+        if (sSymbol == stockSym && sQ >= stQ) {
           let totalQuantity: number = parseFloat(sQuantity) - parseFloat(stockQuantity);
           let totalValue: number = (sValue) - (stockQuantity * BID);
           this.Portfolio[ i ] = new Holding(new Stock(stockSym, stockName, BID, ASK), totalQuantity, totalValue);
-
           this.cash = (this.cash) + (stockQuantity * BID);
-
           let salesPrice: any = (stockQuantity * BID);
           salesPrice = parseFloat(salesPrice);
           salesPrice = salesPrice.toFixed(2);
@@ -172,6 +168,7 @@ export class AppComponent implements OnInit, OnDestroy {
           quantityElement.value = '';
           return;
         }
+
       }
     }
     document.getElementById("message").innerHTML = '<span style="color: lightsalmon;">You cannot make<br>' +
