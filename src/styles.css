@@ -1,6 +1,3 @@
-@import url("normalize.css");
-@import url("skeleton.css");
-
 body{
 	background-color: skyblue;
 }
@@ -142,7 +139,75 @@ section{
 	padding: 0;
 }
 
+.splash-screen{
+	height: 100%;
+	padding-top: 250px; 
+}
 
+.splash-screen .splash-container{
+	width: 250px;
+	margin: 0 auto;
+	text-align: center; 
+}
+
+.splash-screen .logo{
+	display: inline-block;
+	vertical-align: middle;
+	width: 200px;
+	height: 30px;
+	background: url("images/IRIsplash.png") top left no-repeat;
+	background-size: 200px 30px; 
+}
+
+.splash-screen .load-bar{
+	position: relative;
+	margin-top: 20px;
+	width: 100%;
+	height: 10px;
+	background-color: #ffffff; 
+}
+
+.splash-screen .bar{
+	content: "";
+	display: inline;
+	position: absolute;
+	width: 0;
+	height: 100%;
+	left: 50%;
+	text-align: center; 
+}
+
+.splash-screen .bar:nth-child(1){
+	background-color: blue;
+	animation: loading 3s linear infinite; 
+}
+
+.splash-screen .bar:nth-child(2){
+    background-color: white;
+    animation: loading 3s linear 1s infinite; 
+}
+
+.splash-screen .bar:nth-child(3){
+	background-color: red;
+	animation: loading 3s linear 2s infinite; 
+}
+
+@keyframes loading{
+  from{
+    left: 50%;
+    width: 0;
+    z-index: 100; 
+	}
+  33.3333%{
+    left: 0;
+    width: 100%;
+    z-index: 10; 
+	}
+  to{
+    left: 0;
+    width: 100%; 
+	} 
+}
 
 
 

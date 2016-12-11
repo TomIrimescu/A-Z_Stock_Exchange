@@ -2,7 +2,7 @@ import { Injectable, EventEmitter} from '@angular/core';
 import { Headers, Http, Response } from "@angular/http";
 import 'rxjs/Rx';
 import { Stock } from "./stock";
-import {Observable} from 'rxjs/Rx';
+import {Observable, Subscription} from 'rxjs/Rx';
 
 @Injectable()
 export class StockService {
